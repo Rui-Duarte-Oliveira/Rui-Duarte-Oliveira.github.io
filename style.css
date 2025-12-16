@@ -1,0 +1,584 @@
+:root {
+    --bg-color: #0f172a; /* Deep Slate Blue/Grey */
+    --text-heading: #e2e8f0; /* Off-white */
+    --text-body: #94a3b8; /* Soft Grey */
+    --accent-color: #38bdf8; /* Professional Sky Blue */
+    --card-bg: rgba(30, 41, 59, 0.7); /* Lighter Slate Grey with transparency for backdrop effects */
+    --font-sans: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
+    --font-mono: 'Courier Prime', 'Fira Code', monospace;
+    --border-radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Scroll settings */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+html {
+    scroll-padding-top: 100px;
+    /* Custom Scrollbar - Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #334155 #0f172a;
+}
+
+/* Custom Scrollbar - WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #334155;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #38bdf8;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-body);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    position: relative; /* Context for absolute positioning if needed */
+}
+
+/* Global Noise Texture */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    /* Transparent PNG noise pattern (base64) */
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXVnbGxrBgLEwsKcnJyfm5uqqqqvBgaysrK+vr7Gxsako6Ojo6OdnZ2Xl5eTk5OSkpKOjo6IiIiBhYWAgICAf3+s1k19AAAAn0lEQVR42sXSWQ7AIAhFwZ7Qe9/7X7asQomK0r78QWBmEoJz7h89FlgLhBFy2Fh/rx5nhYx6FwhDcY9gxs5iZ7S6iCNgsSMMkCMbI8YLuWMm275/XZ0O2R6z15rM2QIZuwdCSyDkKCKLkOIIKYYQYwixhBBCiCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQoj/iB5/NgIkScvngAAAAABJRU5ErkJggg==");
+    opacity: 0.05;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    color: var(--text-heading);
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+ul {
+    list-style: none;
+}
+
+section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1; /* Ensure content is above background */
+}
+
+/* Background Gradients */
+.bg-gradient-circle {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: -2; /* Behind noise (-1) and content (1) */
+}
+
+.circle-1 {
+    top: -10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: rgba(76, 29, 149, 0.3); /* Deep Purple */
+}
+
+.circle-2 {
+    bottom: -10%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: rgba(6, 182, 212, 0.2); /* Cyan/Teal */
+}
+
+/* Spotlight Overlay */
+#spotlight-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1; /* Same level as noise? Or slightly above? Let's put it above noise but below content. */
+    /* Wait, body::before is z-index -1. If I put this at -1, order depends on DOM order.
+       In index.html: circles, then spotlight, then content.
+       So:
+       -2: Circles
+       -1: Spotlight
+       -1: Noise (body::before) -> Pseudo elements are usually on top of the element's background but below content.
+       Let's manage z-index carefully.
+       Content is z-index: 1.
+       Spotlight should be 0? Or -1?
+       If noise is on body::before, it's painted before content.
+       I want Spotlight to be visible.
+    */
+    z-index: -1;
+    transition: background 0.1s ease; /* smooth movement */
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    /* Removed the previous radial gradient to let the new global background shine through */
+    background: transparent;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    width: 100%;
+}
+
+.hero-text-content {
+    flex: 1;
+    text-align: left;
+}
+
+.hero-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-title {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #e2e8f0, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.hero-bio {
+    font-size: 1.125rem;
+    color: var(--text-body);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+}
+
+/* Code Window Visual */
+.code-window {
+    background-color: rgba(15, 23, 42, 0.8); /* Semi-transparent */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
+    font-family: var(--font-mono);
+    backdrop-filter: blur(10px); /* Glass effect for window */
+}
+
+.window-header {
+    background-color: rgba(30, 41, 59, 0.9);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.window-dots {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot.red { background-color: #ef4444; }
+.dot.yellow { background-color: #f59e0b; }
+.dot.green { background-color: #22c55e; }
+
+.filename {
+    font-size: 0.85rem;
+    color: var(--text-body);
+    opacity: 0.8;
+}
+
+.window-body {
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.window-body pre {
+    margin: 0;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Syntax Highlighting */
+.keyword { color: #c678dd; } /* Purple */
+.type { color: #e5c07b; } /* Yellow/Orange */
+.function { color: #61afef; } /* Blue */
+.string { color: #98c379; } /* Green */
+.number { color: #d19a66; } /* Orange */
+.comment { color: #7f848e; font-style: italic; } /* Grey */
+
+/* Animations */
+.hidden {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    margin: 10px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: #0f172a; /* Dark text on bright button for contrast */
+    border: 2px solid var(--accent-color);
+}
+
+.btn-primary:hover {
+    background-color: #0ea5e9; /* Slightly darker blue */
+    border-color: #0ea5e9;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); /* Glow effect */
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-heading);
+    border: 2px solid var(--text-body);
+}
+
+.btn-secondary:hover {
+    border-color: var(--text-heading);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Section Headers */
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--text-heading);
+    position: relative;
+    display: inline-block;
+}
+
+/* Experience Section (Wide Cards) */
+.experience-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.experience-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    display: flex;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s ease;
+    backdrop-filter: blur(5px);
+}
+
+.experience-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.3); /* Subtle accent border */
+}
+
+.experience-content {
+    padding: 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.experience-image {
+    flex: 1;
+    background-color: rgba(15, 23, 42, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.exp-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-heading);
+}
+
+.exp-role {
+    font-size: 1.25rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.exp-desc {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+
+.tag-pill {
+    background-color: rgba(56, 189, 248, 0.1);
+    color: var(--accent-color);
+    padding: 6px 14px;
+    border-radius: 9999px; /* Pill shape */
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: var(--font-mono);
+}
+
+.exp-links {
+    display: flex;
+    gap: 15px;
+}
+
+/* Projects Section */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    border-color: rgba(56, 189, 248, 0.3);
+}
+
+.project-thumbnail {
+    height: 200px;
+    background-color: rgba(15, 23, 42, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.placeholder-img, .placeholder-img-wide {
+    font-size: 3rem;
+    color: #334155;
+}
+
+.project-content {
+    padding: 24px;
+}
+
+.project-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.project-tags {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.mini-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-body);
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.project-content p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-sm {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-sm:hover {
+    color: #7dd3fc;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* Skills Section */
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.skill-category h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Footer */
+.footer {
+    padding: 60px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 60px;
+    background-color: transparent; /* Changed from solid bg to let gradient show? Or keep solid? */
+    /* Let's keep it transparent or semi-transparent */
+    background-color: rgba(15, 23, 42, 0.8);
+}
+
+.social-links {
+    margin-bottom: 25px;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+    margin: 0 15px;
+    color: var(--text-body);
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.copyright {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .hero-text-content {
+        text-align: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero-visual {
+        width: 100%;
+    }
+
+    .hero-bio {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .experience-card {
+        flex-direction: column-reverse; /* Image on top on mobile */
+    }
+
+    .experience-image {
+        min-height: 200px;
+    }
+
+    .experience-content {
+        padding: 30px;
+    }
+
+    .code-window {
+        font-size: 0.8rem;
+    }
+}
