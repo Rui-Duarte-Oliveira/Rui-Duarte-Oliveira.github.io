@@ -395,6 +395,22 @@ section {
     gap: 15px;
 }
 
+/* Removes padding from the container so the image touches the edges */
+.experience-image {
+    padding: 0 !important; 
+    overflow: hidden;
+    display: flex; /* Ensures no weird gaps */
+}
+
+/* Forces the image to cover the full area */
+.steam-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* This crops the edges slightly to fill the space */
+    object-position: center; 
+    border-radius: 0 8px 8px 0; /* Keeps the right-side corners rounded matches your card */
+}
+
 /* Projects Section */
 .projects-grid {
     display: grid;
