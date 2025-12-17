@@ -53,27 +53,30 @@
                                 <span class="dot yellow"></span>
                                 <span class="dot green"></span>
                             </div>
-                            <span class="filename">PlayerController.cpp</span>
+                            <span class="filename">AIController.cpp</span>
                         </div>
                         <div class="window-body">
-<pre><code><span class="keyword">void</span> <span class="type">APlayerController</span>::<span class="function">BeginPlay</span>() {
-    <span class="keyword">Super</span>::BeginPlay();
+<pre><code><span class="keyword">void</span> <span class="type">AAIController</span>::<span class="function">EvaluateTarget</span>() {
+    <span class="keyword">float</span> BestScore = <span class="number">0.f</span>;
+    <span class="type">AActor</span>* BestTarget = <span class="keyword">nullptr</span>;
 
-    <span class="comment">// Initialize core systems</span>
-    <span class="keyword">if</span> (GEngine) {
-        GEngine-><span class="function">AddOnScreenDebugMessage</span>(
-            <span class="number">-1</span>,
-            <span class="number">5.f</span>,
-            <span class="type">FColor</span>::Green,
-            <span class="string">TEXT("System Ready!")</span>
-        );
+    <span class="keyword">for</span> (<span class="keyword">auto</span>& Stimulus : PerceptionComp-><span class="function">GetPerceivedActors</span>()) {
+        <span class="keyword">float</span> Score = <span class="function">CalcThreatScore</span>(Stimulus);
+        Score *= <span class="function">GetDistanceWeight</span>(Stimulus);
+        
+        <span class="keyword">if</span> (Score > BestScore) {
+            BestScore = Score;
+            BestTarget = Stimulus;
+        }
     }
+    
+    <span class="function">SetCurrentTarget</span>(BestTarget);
 }</code></pre>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
         <!-- Professional Experience (Shipped Titles) -->
         <section id="experience" class="experience-section">
