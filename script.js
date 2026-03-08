@@ -1,36 +1,73 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Portfolio loaded.');
+document.documentElement.classList.add('js');
 
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1 // Trigger when 10% of the element is visible
+(() => {
+    const hiddenElements = document.querySelectorAll('.hidden');
+
+    const revealAll = () => {
+        hiddenElements.forEach((element) => element.classList.add('show'));
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-                observer.unobserve(entry.target); // Only animate once
+    try {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+        if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+            revealAll();
+        } else {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, currentObserver) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        currentObserver.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            hiddenElements.forEach((element) => observer.observe(element));
+        }
+
+        // Mouse Tracking Spotlight
+        const spotlight = document.getElementById('spotlight-overlay');
+
+        if (!spotlight) {
+            return;
+        }
+
+        if (prefersReducedMotion || !hasFinePointer) {
+            spotlight.style.display = 'none';
+            return;
+        }
+
+        let frameId = null;
+        let pointerX = window.innerWidth / 2;
+        let pointerY = window.innerHeight / 2;
+
+        const renderSpotlight = () => {
+            spotlight.style.background = `radial-gradient(600px circle at ${pointerX}px ${pointerY}px, rgba(6, 182, 212, 0.1), transparent 40%)`;
+            frameId = null;
+        };
+
+        window.addEventListener('pointermove', (event) => {
+            if (event.pointerType !== 'mouse') {
+                return;
             }
-        });
-    }, observerOptions);
 
-    const hiddenElements = document.querySelectorAll('.hidden');
-    hiddenElements.forEach((el) => observer.observe(el));
+            pointerX = event.clientX;
+            pointerY = event.clientY;
 
-    // Mouse Tracking Spotlight
-    const spotlight = document.getElementById('spotlight-overlay');
+            if (frameId === null) {
+                frameId = window.requestAnimationFrame(renderSpotlight);
+            }
+        }, { passive: true });
 
-    if (spotlight) {
-        window.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-
-            // Subtle radial gradient following the mouse
-            // 600px radius, cyan/blue tint
-            spotlight.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(6, 182, 212, 0.1), transparent 40%)`;
-        });
+        renderSpotlight();
+    } catch (error) {
+        revealAll();
     }
-});
+})();

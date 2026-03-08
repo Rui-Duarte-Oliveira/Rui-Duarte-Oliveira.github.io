@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Developer Portfolio</title>
+    <meta name="description" content="Rui Oliveira is a systems and AI programmer specializing in C#, C++, Unity, Unreal Engine, gameplay systems, tools, and backend products.">
+    <meta name="theme-color" content="#0f172a">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Rui Oliveira | Systems &amp; AI Programmer">
+    <meta property="og:description" content="Portfolio of Rui Oliveira, featuring shipped games, gameplay systems work, and product engineering projects.">
+    <meta property="og:image" content="favicon.png">
+    <meta property="og:site_name" content="Rui Oliveira Portfolio">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Rui Oliveira | Systems &amp; AI Programmer">
+    <meta name="twitter:description" content="Portfolio of Rui Oliveira, featuring shipped games, gameplay systems work, and product engineering projects.">
+    <meta name="twitter:image" content="favicon.png">
+    <title>Rui Oliveira | Systems & AI Programmer</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <!-- Fonts -->
@@ -16,19 +27,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
 
     <!-- Background Elements -->
     <div class="bg-gradient-circle circle-1"></div>
     <div class="bg-gradient-circle circle-2"></div>
     <div id="spotlight-overlay"></div>
 
-    <!-- Navigation (Optional) -->
-    <nav>
-        <!-- Implementation in later steps if needed, for now just structure -->
+    <!-- Navigation -->
+    <nav class="site-nav" aria-label="Primary">
+        <div class="site-nav-inner">
+            <a href="#hero" class="site-brand">Rui Oliveira</a>
+            <div class="nav-links">
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#product" class="nav-link">Product</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-link nav-resume">Resume</a>
+            </div>
+        </div>
     </nav>
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content">
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
             <div class="hero-container">
@@ -40,8 +61,8 @@
                         Specializing in C#, C++, and optimizing robust game systems.
                     </p>
                     <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary">View Code</a>
-                        <a href="resume.pdf" target="_blank" class="btn btn-secondary">Resume</a>
+                        <a href="#experience" class="btn btn-primary">View Experience</a>
+                        <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Resume</a>
                     </div>
                 </div>
 
@@ -97,15 +118,19 @@
                             <span class="tag-pill">Steamworks</span>
                         </div>
                         <div class="exp-links">
-                            <a href="https://store.steampowered.com/app/496170/Desert_Race_Adventures/" target="_blank" class="btn-sm"><i class="fab fa-steam"></i> View on Steam</a>
-                            <a href="https://gcontrolgames.com/games/desert-race-adventures/" target="_blank" class="btn-sm"><i class="fa-solid fa-globe"></i> Official Site</a>
+                            <a href="https://store.steampowered.com/app/496170/Desert_Race_Adventures/" target="_blank" rel="noopener noreferrer" class="btn-sm"><i class="fab fa-steam" aria-hidden="true"></i> View on Steam</a>
+                            <a href="https://gcontrolgames.com/games/desert-race-adventures/" target="_blank" rel="noopener noreferrer" class="btn-sm"><i class="fa-solid fa-globe" aria-hidden="true"></i> Official Site</a>
                         </div>
                     </div>
                     <div class="experience-image">
                         <img 
-                            src="https://cdn.akamai.steamstatic.com/steam/apps/496170/library_hero.jpg" 
+                            src="desert-race-adventures.jpg" 
                             alt="Desert Race Adventures Cover" 
                             class="steam-cover-img"
+                            loading="lazy"
+                            decoding="async"
+                            width="460"
+                            height="215"
                         >
                     </div>
                 </div>
@@ -127,15 +152,19 @@
                             <span class="tag-pill">UI</span>
                         </div>
                         <div class="exp-links">
-                            <a href="https://store.steampowered.com/app/391670/Eternity/" target="_blank" class="btn-sm"><i class="fab fa-steam"></i> View on Steam</a>
-                            <a href="https://gcontrolgames.com/games/eternity/" target="_blank" class="btn-sm"><i class="fa-solid fa-globe"></i> Official Site</a>
+                            <a href="https://store.steampowered.com/app/391670/Eternity/" target="_blank" rel="noopener noreferrer" class="btn-sm"><i class="fab fa-steam" aria-hidden="true"></i> View on Steam</a>
+                            <a href="https://gcontrolgames.com/games/eternity/" target="_blank" rel="noopener noreferrer" class="btn-sm"><i class="fa-solid fa-globe" aria-hidden="true"></i> Official Site</a>
                         </div>
                     </div>
                     <div class="experience-image">
                         <img 
-                            src="https://cdn.akamai.steamstatic.com/steam/apps/391670/library_hero.jpg" 
+                            src="eternity.jpg" 
                             alt="Eternity Cover" 
                             class="steam-cover-img"
+                            loading="lazy"
+                            decoding="async"
+                            width="460"
+                            height="215"
                         >    
                     </div>
                 </div>
@@ -154,11 +183,11 @@
                             <span class="tag-pill">Blueprints</span>
                         </div>
                         <div class="exp-links">
-                            <a href="https://gcontrolgames.com/games/cosmonaut/" target="_blank" class="btn-sm"><i class="fa-solid fa-globe"></i> Official Site</a>
+                            <a href="https://gcontrolgames.com/games/cosmonaut/" target="_blank" rel="noopener noreferrer" class="btn-sm"><i class="fa-solid fa-globe" aria-hidden="true"></i> Official Site</a>
                         </div>
                     </div>
                     <div class="experience-image">
-                        <div class="placeholder-img-wide">
+                        <div class="placeholder-img-wide" aria-hidden="true">
                             <i class="fa-solid fa-car-side"></i>
                         </div>
                     </div>
@@ -181,18 +210,70 @@
                             <span class="tag-pill">Blueprints</span>
                         </div>
                         <div class="exp-links">
-                            <a href="https://store.steampowered.com/app/2141130/Road_Kings/" target="_blank" class="btn-sm"><i class="fab fa-steam"></i> View on Steam</a>
+                            <a href="https://store.steampowered.com/app/2141130/Road_Kings/" target="_blank" rel="noopener noreferrer" class="btn-sm"><i class="fab fa-steam" aria-hidden="true"></i> View on Steam</a>
                         </div>
                     </div>
                     <div class="experience-image">
                         <img 
-                            src="https://cdn.akamai.steamstatic.com/steam/apps/2141130/library_hero.jpg" 
+                            src="road-kings.jpg" 
                             alt="Road Kings Cover" 
                             class="steam-cover-img"
+                            loading="lazy"
+                            decoding="async"
+                            width="460"
+                            height="215"
                         >
                     </div>
                 </div>
                 
+            </div>
+        </section>
+
+        <!-- Featured Product -->
+        <section id="product" class="product-section">
+            <h2 class="section-title hidden">Featured Product</h2>
+            <div class="product-highlight hidden">
+                <div class="product-copy">
+                    <span class="product-eyebrow">Built and owned by me</span>
+                    <h3 class="product-title">Synexus</h3>
+                    <p class="product-lead">
+                        A product focused on reliable digital infrastructure, backend systems, and practical integrations for scalable platforms.
+                    </p>
+                    <p class="product-description">
+                        Synexus reflects the product side of my work: software architecture, automation, performance, and engineering systems with a strong operational foundation.
+                    </p>
+                    <div class="product-tags">
+                        <span class="tag-pill">Backend Systems</span>
+                        <span class="tag-pill">Infrastructure</span>
+                        <span class="tag-pill">Automation</span>
+                    </div>
+                    <div class="product-links">
+                        <a href="https://www.synexus.pt" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Visit Synexus</a>
+                    </div>
+                </div>
+
+                <div class="product-visual">
+                    <div class="product-panel">
+                        <div class="product-panel-header">
+                            <span class="product-panel-dot"></span>
+                            <span class="product-panel-label">synexus.pt</span>
+                        </div>
+                        <div class="product-panel-body">
+                            <div class="product-stat-card">
+                                <span class="product-stat-label">Focus</span>
+                                <strong>Architecture & Integrations</strong>
+                            </div>
+                            <div class="product-stat-card">
+                                <span class="product-stat-label">Approach</span>
+                                <strong>Scalable systems built for real operations</strong>
+                            </div>
+                            <div class="product-stat-card">
+                                <span class="product-stat-label">Outcome</span>
+                                <strong>Product thinking beyond gameplay code</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -215,7 +296,7 @@
                         </div>
                         <p>A 1v1 network prototype demonstrating Unity Netcode for GameObjects.</p>
                         <div class="project-links">
-                            <a href="https://github.com/Rui-Duarte-Oliveira/BasicMultiplayer" target="_blank" class="btn-sm"><i class="fab fa-github"></i> Source Code</a>
+                            <a href="https://github.com/Rui-Duarte-Oliveira/BasicMultiplayer" target="_blank" rel="noopener noreferrer" class="btn-sm"><i class="fab fa-github" aria-hidden="true"></i> Source Code</a>
                         </div>
                     </div>
                 </div>
@@ -238,7 +319,7 @@
                         <p>A high-performance RTS prototype built on Unity DOTS.</p>
                         <p>Utilizes ECS, Burst, and the C# Job System to handle massive unit formations with deterministic simulation logic.</p>
                         <div class="project-links">
-                            <a href="https://github.com/Rui-Duarte-Oliveira/LandFall" target="_blank" class="btn-sm"><i class="fab fa-github"></i> Source Code</a>
+                            <a href="https://github.com/Rui-Duarte-Oliveira/LandFall" target="_blank" rel="noopener noreferrer" class="btn-sm"><i class="fab fa-github" aria-hidden="true"></i> Source Code</a>
                         </div>
                     </div>
                 </div>
@@ -274,11 +355,11 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="social-links">
-                <a href="https://github.com/Rui-Duarte-Oliveira" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/ruidoliveiradev/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:duarterui00@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://github.com/Rui-Duarte-Oliveira" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile"><i class="fab fa-github" aria-hidden="true"></i></a>
+                <a href="https://www.linkedin.com/in/ruidoliveiradev/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                <a href="mailto:duarterui00@gmail.com" aria-label="Send email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
             </div>
-            <p class="copyright">&copy; 2025 Rui Oliveira. All rights reserved.</p>
+            <p class="copyright">&copy; 2026 Rui Oliveira. All rights reserved.</p>
         </div>
     </footer>
 
