@@ -32,6 +32,19 @@ document.documentElement.classList.add('js');
             hiddenElements.forEach((element) => observer.observe(element));
         }
 
+        // Hero Code Typing Effect
+        const heroCodeEl = document.querySelector('#hero-code');
+        if (heroCodeEl) {
+            new TypeIt('#hero-code', {
+                speed: 15,
+                waitUntilVisible: true,
+                lifeLike: true,
+                html: true,
+                cursor: true,
+                cursorSpeed: 1000,
+            }).go();
+        }
+
         // Mouse Tracking Spotlight
         const spotlight = document.getElementById('spotlight-overlay');
 
@@ -49,7 +62,7 @@ document.documentElement.classList.add('js');
         let pointerY = window.innerHeight / 2;
 
         const renderSpotlight = () => {
-            spotlight.style.background = `radial-gradient(600px circle at ${pointerX}px ${pointerY}px, rgba(6, 182, 212, 0.1), transparent 40%)`;
+            spotlight.style.background = `radial-gradient(340px circle at ${pointerX}px ${pointerY}px, rgba(6, 182, 212, 0.15), transparent 60%)`;
             frameId = null;
         };
 
